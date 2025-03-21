@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commit Message Generator Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Commit Message Generator Pro</h1>
+            <div class="header-actions">
+                <button id="helpBtn" class="btn btn-secondary" aria-label="Open help">Help</button>
+                <button id="darkModeToggle" class="btn btn-secondary" aria-label="Toggle dark mode">Dark Mode</button>
+                <button id="highContrastToggle" class="btn btn-secondary" aria-label="Toggle high contrast">High Contrast</button>
+                <button id="settingsBtn" class="btn btn-secondary" aria-label="Open settings">Settings</button>
+            </div>
+        </header>
+
+        <form id="commitForm" class="form-grid">
+            <div class="form-group">
+                <label for="commitType">Type <span class="tooltip" data-tooltip="The type of change (e.g., feat, fix)">ℹ️</span></label>
+                <select id="commitType" aria-label="Select commit type">
+                    <option value="feat">feat (feature)</option>
+                    <option value="fix">fix (bug fix)</option>
+                    <option value="docs">docs (documentation)</option>
+                    <option value="style">style (formatting)</option>
+                    <option value="refactor">refactor (code restructuring)</option>
+                    <option value="test">test (adding tests)</option>
+                    <option value="chore">chore (maintenance)</option>
+                    <option value="custom">custom (enter below)</option>
+                </select>
+                <input type="text" id="customType" placeholder="e.g., perf" class="hidden" aria-label="Custom commit type">
+            </div>
+
+            <div class="form-group">
+                <label for="scope">Scope <span class="tooltip" data-tooltip="Optional: The part affected (e.g., ui, api)">ℹ️</span></label>
+                <input type="text" id="scope" list="scopeSuggestions" placeholder="e.g., ui, api" aria-label="Commit scope">
+                <datalist id="scopeSuggestions">
+                    <option value="ui">
+                    <option value="api">
+                    <option value="docs">
+                    <option value="tests">
+                </datalist>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="description">Description <span class="tooltip" data-tooltip="Short, imperative summary of the change">ℹ️</span></label>
+                <textarea id="description" placeholder="e.g., add user authentication" aria-label="Commit description" required></textarea>
+            </div>
+
+            <div class="form-group full-width actions">
+                <button type="button" id="resetBtn" class="btn btn-secondary" aria-label="Reset form">Reset</button>
+                <button type="button" id="copyBtn" class="btn btn-primary" aria-label="Copy to clipboard">Copy</button>
+                <button type="button" id="downloadBtn" class="btn btn-primary" aria-label="Download as text">Download</button>
+            </div>
+        </form>
+
+        <div id="previewContainer" class="preview-container">
+            <div class="preview-header">
+                <h2>Preview</h2>
+                <button id="githubPreview" class="btn btn-secondary" aria-label="Toggle GitHub style">GitHub Style</button>
+            </div>
+            <div id="preview" class="preview" aria-label="Commit message preview"></div>
+        </div>
+
+        <div class="history-container">
+            <h2>Recent Commits</h2>
+            <ul id="historyList" aria-label="Recent commit messages"></ul>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Settings</h2>
+                <label>Preview Font Size: <input type="number" id="previewFontSize" min="12" max="20" value="16" aria-label="Preview font size"></label>
+                <label><input type="checkbox" id="autoSave" aria-label="Enable auto-save"> Enable Auto-Save</label>
+                <button id="closeSettings" class="btn btn-primary" aria-label="Save and close settings">Save & Close</button>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="helpModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Help</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="guide">Guide</button>
+                    <button class="tab-btn" data-tab="examples">Examples</button>
+                </div>
+                <div id="helpContent" class="tab-content"></div>
+                <button id="closeHelp" class="btn btn-primary" aria-label="Close help">Close</button>
+            </div>
+        </div>
+
+        <!-- Alert Box -->
+        <div id="alertBox" class="alert" style="display: none;" role="alert"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
